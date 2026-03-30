@@ -1,10 +1,11 @@
 # AI Chatbot
 
-This is a simple AI chatbot project.
+Beyond The Pill AI Chatbot provides a basic introduction to HIV prevention, including Pre-Exposure Prophylaxis (PrEP), injectable PrEP, and other emerging options. 
+It is designed to educate users, answer common questions, and improve awareness of accessible HIV prevention methods.
 
 ## Structure
-- Backend (Flask/Node.js)
-- Frontend (HTML/JS)
+- Backend: Python (Flask) / JavaScript (Node.js)
+- Frontend: HTML, CSS, JavaScript
 
 ## Setup
 Instructions coming soon.
