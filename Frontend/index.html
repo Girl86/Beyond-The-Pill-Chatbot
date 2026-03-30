@@ -20,18 +20,69 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Beyond The Pill Chatbot</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beyond The Pill AI Chatbot</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f8f8f8;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 50px;
+    }
+    #chat-container {
+      width: 400px;
+      max-width: 90%;
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    #messages {
+      height: 300px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+      background: #f9f9f9;
+    }
+    .message {
+      margin-bottom: 10px;
+    }
+    .user { color: blue; }
+    .bot { color: green; }
+    #input-container { display: flex; }
+    #user-input {
+      flex: 1;
+      padding: 8px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+    #send-btn {
+      padding: 8px 12px;
+      margin-left: 5px;
+      border: none;
+      background-color: #d32f2f;
+      color: white;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-    <h2>Beyond The Pill Chatbot</h2>
-    <div>
-        <input type="text" id="userInput" placeholder="Type your message here..." />
-        <button onclick="sendMessage()">Send</button>
+  <h1>Beyond The Pill AI Chatbot</h1>
+  <div id="chat-container">
+    <div id="messages"></div>
+    <div id="input-container">
+      <input type="text" id="user-input" placeholder="Type your message here...">
+      <button id="send-btn">Send</button>
     </div>
-    <div id="chatArea"></div>
+  </div>
 
-    <script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
 >>>>>>> d771664 (Update chatbot backend, frontend, and README with working AI logic)

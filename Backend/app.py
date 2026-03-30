@@ -4,6 +4,11 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)  # allows frontend to call backend
 
+# Home route (works in browser)
+@app.route("/")
+def home():
+    return "Beyond The Pill AI Chatbot backend is running!"
+
 # Simple chatbot logic
 def chatbot_response(user_input):
     user_input = user_input.lower()
@@ -14,6 +19,7 @@ def chatbot_response(user_input):
     else:
         return "Sorry, I didn’t understand that. Can you rephrase?"
 
+# Chat route (POST only)
 @app.route("/chat", methods=["POST"])
 def chat():
     data = request.get_json()
