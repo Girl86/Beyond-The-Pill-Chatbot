@@ -1,20 +1,53 @@
-async function sendMessage() {
-    const input = document.getElementById("userInput").value;
-    if (!input) return;
+// script.js
 
-    // Show user message
-    const chatArea = document.getElementById("chatArea");
-    chatArea.innerHTML += `<p><b>You:</b> ${input}</p>`;
+const sendBtn = document.getElementById("send-btn");
+const userInput = document.getElementById("user-input");
+const messagesDiv = document.getElementById("messages");
 
-    // Call backend
-    const response = await fetch("http://127.0.0.1:5000/chat", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: input })
-    });
+// Backend URL
+const apiUrl = "http://127.0.0.1:5000/chat";
 
-    const data = await response.json();
-    chatArea.innerHTML += `<p><b>Bot:</b> ${data.reply}</p>`;
-
-    document.getElementById("userInput").value = ""; // clear input
+// Function to append messages to chat
+function appendMessage(sender, text) {
+    const messageDiv = document.createElement("div");
+    messageDiv.classList.add("message");
+    messageDiv.classList.add(sender === "user" ? "user" : "bot");
+    messageDiv.innerText = `${sender.toUpperCase()}: ${text}`;
+    messagesDiv.appendChild(messageDiv);
+    messagesDiv.scrollTop = messagesDiv.scrollHeight; // auto scroll
 }
+
+// Send message function
+async function sendMessage() {
+    const message = userInput.value.trim();
+    if (!message) return;
+
+    appendMessage("user", message);
+    userInput.value = "";
+
+    try {
+        const response = await fetch(apiUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ message }),
+        });
+
+        if (!response.ok) throw new Error("Backend error");
+
+        const data = await response.json();
+        appendMessage("bot", data.reply);
+    } catch (err) {
+        appendMessage("bot", "Error: Could not reach backend.");
+        console.error(err);
+    }
+}
+
+// Event listener for Enter key
+userInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") sendMessage();
+});
+
+// Event listener for Send button
+sendBtn.addEventListener("click", sendMessage);
