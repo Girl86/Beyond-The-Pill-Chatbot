@@ -1,42 +1,20 @@
-const messagesDiv = document.getElementById("messages");
-const userInput = document.getElementById("user-input");
-const sendBtn = document.getElementById("send-btn");
-
-// Function to display messages
-function addMessage(sender, text) {
-  const msgDiv = document.createElement("div");
-  msgDiv.classList.add("message");
-  msgDiv.classList.add(sender);
-  msgDiv.textContent = `${sender.toUpperCase()}: ${text}`;
-  messagesDiv.appendChild(msgDiv);
-  messagesDiv.scrollTop = messagesDiv.scrollHeight;
-}
-
-// Send message to backend
 async function sendMessage() {
-  const message = userInput.value.trim();
-  if (!message) return;
+    const input = document.getElementById("userInput").value;
+    if (!input) return;
 
-  addMessage("user", message);
-  userInput.value = "";
+    // Show user message
+    const chatArea = document.getElementById("chatArea");
+    chatArea.innerHTML += `<p><b>You:</b> ${input}</p>`;
 
-  try {
+    // Call backend
     const response = await fetch("http://127.0.0.1:5000/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message })
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: input })
     });
 
     const data = await response.json();
-    addMessage("bot", data.reply);
-  } catch (error) {
-    addMessage("bot", "Error: Could not reach backend.");
-    console.error(error);
-  }
-}
+    chatArea.innerHTML += `<p><b>Bot:</b> ${data.reply}</p>`;
 
-// Event listeners
-sendBtn.addEventListener("click", sendMessage);
-userInput.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") sendMessage();
-});
+    document.getElementById("userInput").value = ""; // clear input
+}
