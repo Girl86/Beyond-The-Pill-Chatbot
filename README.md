@@ -7,12 +7,25 @@ It is designed to educate users, answer common questions, and improve awareness 
 ## Structure
 - Backend: Python (Flask) – handles API requests and chatbot logic
 - Frontend: HTML, CSS, JavaScript – user interface for interaction
+---
 
-## Setup
+## Features
+
+- Simple AI chatbot logic to answer user queries  
+- Color-coded messages: **user (blue)**, **bot (green)**  
+- Styled responsive frontend interface  
+- Easily extendable backend logic  
+
+---
+
+## Setup Instructions
+
 ### 1. Clone the Repository
+
 ```bash
 git clone https://github.com/Girl86/beyond-the-pill-chatbot.git
-cd beyond-the-pill-chatbot
+cd "Beyond The Pill Chatbot"
+
 
 ## Purpose
 This chatbot supports digital health education efforts by simplifying complex HIV prevention information and making it accessible through conversational AI.
