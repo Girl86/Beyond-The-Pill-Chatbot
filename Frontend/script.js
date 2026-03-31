@@ -4,50 +4,53 @@ const sendBtn = document.getElementById("send-btn");
 const userInput = document.getElementById("user-input");
 const messagesDiv = document.getElementById("messages");
 
-// Backend URL
-const apiUrl = "http://127.0.0.1:5000/chat";
-
-// Function to append messages to chat
-function appendMessage(sender, text) {
-    const messageDiv = document.createElement("div");
-    messageDiv.classList.add("message");
-    messageDiv.classList.add(sender === "user" ? "user" : "bot");
-    messageDiv.innerText = `${sender.toUpperCase()}: ${text}`;
-    messagesDiv.appendChild(messageDiv);
-    messagesDiv.scrollTop = messagesDiv.scrollHeight; // auto scroll
-}
-
-// Send message function
+// Function to send message to backend
 async function sendMessage() {
-    const message = userInput.value.trim();
-    if (!message) return;
+    const inputField = document.getElementById("user-input");
+    const message = inputField.value.trim();
 
-    appendMessage("user", message);
-    userInput.value = "";
+    if (message === "") return;
+
+    const chatBox = document.getElementById("messages");
+
+    // Display user message
+    chatBox.innerHTML += `<div class="message user"><strong>You:</strong> ${message}</div>`;
+
+    // Clear input
+    inputField.value = "";
 
     try {
-        const response = await fetch(apiUrl, {
+        // Send message to Flask backend
+        const response = await fetch("http://127.0.0.1:5000/chat", {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify({ message }),
+            body: JSON.stringify({ message: message })
         });
 
-        if (!response.ok) throw new Error("Backend error");
-
         const data = await response.json();
-        appendMessage("bot", data.reply);
-    } catch (err) {
-        appendMessage("bot", "Error: Could not reach backend.");
-        console.error(err);
+
+        // Display bot reply
+        chatBox.innerHTML += `<div class="message bot"><strong>Bot:</strong> ${data.reply}</div>`;
+
+    } catch (error) {
+        // Handle error
+        chatBox.innerHTML += `<div class="message bot"><strong>Bot:</strong> Error: Could not reach backend</div>`;
+        console.error("Error:", error);
     }
+
+    // Auto scroll to bottom
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-// Event listener for Enter key
-userInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") sendMessage();
-});
+// Allow Enter key to send message
+document.addEventListener("DOMContentLoaded", function () {
+    const inputField = document.getElementById("user-input");
 
-// Event listener for Send button
-sendBtn.addEventListener("click", sendMessage);
+    inputField.addEventListener("keypress", function (event) {
+        if (event.key === "Enter") {
+            sendMessage();
+        }
+    });
+});
