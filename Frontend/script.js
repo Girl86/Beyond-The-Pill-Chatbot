@@ -1,9 +1,3 @@
-// script.js
-
-const sendBtn = document.getElementById("send-btn");
-const userInput = document.getElementById("user-input");
-const messagesDiv = document.getElementById("messages");
-
 // Function to send message to backend
 async function sendMessage() {
     const inputField = document.getElementById("user-input");
