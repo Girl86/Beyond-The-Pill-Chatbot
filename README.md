@@ -29,3 +29,26 @@ cd "Beyond The Pill Chatbot"
 
 ## Purpose
 This chatbot supports digital health education efforts by simplifying complex HIV prevention information and making it accessible through conversational AI.
+
+
+
+**Extra
+Project folder structure**
+
+.venv 
+Backend 
+Frontend 
+README.md 
+.env
+.gitignore
+License
+
+
+.venv → Python virtual environment (ignored by Git, so safe)
+Backend/ → Flask backend (app.py, requirements.txt)
+Frontend/ → HTML + JS frontend (index.html, script.js)
+README.md → Project description & instructions
+.env → API keys & secrets (ignored by Git)
+.gitignore → Ensures .env and .venv aren’t pushed
+License → You mentioned Creative Commons license
+
